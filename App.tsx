@@ -1,23 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
+import BottomDrawer from './components/bottomDrawer/index';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Button, SafeAreaView, Text } from 'react-native';
 
 export default function App() {
-  const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
+    // const isLoadingComplete = useCachedResources();
+    const colorScheme = useColorScheme();
 
-  if (!isLoadingComplete) {
-    return null;
-  } else {
-    return (
-      <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
-        <StatusBar />
-      </SafeAreaProvider>
-    );
-  }
+    const [isOpen, setIsOpen] = useState(false);
+        return (
+            <GestureHandlerRootView style={{ flex: 1 }}>
+                <SafeAreaView style={{ flex: 1}}>
+                    <Navigation/>
+                </SafeAreaView>
+            </GestureHandlerRootView>
+        );
+    // }
 }
